@@ -1,0 +1,67 @@
+
+.register {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGxeJAr5pAHjNPUXGsymjy_IfrL22Xia_Czw&usqp=CAU");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center top;
+  background-attachment: fixed;
+  position: relative;
+  &__header {
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    top: 150px;
+    position: absolute;
+    color: #a17fb5;
+    font-size: 30px;
+    font-weight: 700;
+  }
+  &__form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    width: 400px;
+    height: 420px;
+    margin: 0 auto;
+    text-align: center;
+    background: aliceblue;
+    display: block!important;
+  }
+  &__name-input {
+    margin-top: 60px;
+  }
+  &__surname-input {
+    margin-top: 10px;
+  }
+  &__email-input {
+    margin-top: 10px;
+  }
+  &__password-input {
+    margin-top: 10px;
+  }
+  &__button {
+    top: 10px;
+    display: block;
+  }
+  &__error {
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    color: red;
+    top: 10px;
+    margin: 0;
+    padding: 0;
+  }
+  &__bottom-p {
+    color: #c6c8cc;
+  }
+  &__not-registered {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
