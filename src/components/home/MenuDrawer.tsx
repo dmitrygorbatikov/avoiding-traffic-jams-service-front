@@ -5,7 +5,6 @@ import TableRowsIcon from '@mui/icons-material/TableRows';
 import {IconButton} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    getUserProfileLoadingSelector,
     userProfileSelector
 } from "../../modules/user/selectors";
 import {logoutUser} from "../../modules/auth/actions";
@@ -31,7 +30,7 @@ const MenuDrawer = () => {
             >
                 <div className="drawer">
                     <div className="drawer__header">
-                        <p>{profile?.username}</p>
+                        <p>Hi, {profile?.username}!</p>
                     </div>
                     <div className="menu">
                         <div className={`menu__item ${pathName === '/' ? 'menu__item-active' : ''}`}
@@ -40,6 +39,13 @@ const MenuDrawer = () => {
                              }
                              }>
                             <p>HOME</p>
+                        </div>
+                        <div className={`menu__item ${pathName.includes('car') ? 'menu__item-active' : ''}`}
+                             onClick={() => {
+                                 history.push('/car')
+                             }
+                             }>
+                            <p>MY CAR</p>
                         </div>
                         <div className={`menu__item ${pathName.includes('chats') ? 'menu__item-active' : ''}`}
                              onClick={() => {

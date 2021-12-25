@@ -7,12 +7,14 @@ import {selectButtonSelector} from "../modules/user/selectors";
 import * as React from "react";
 import {useEffect} from "react";
 import MenuDrawer from "../components/home/MenuDrawer";
+import {getCar} from "../modules/car/actions";
 
 export const ChatsPage = () => {
     const selectButton = useSelector(selectButtonSelector)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getUserProfile())
+        dispatch(getCar())
     }, [])
     return (
         <div style={{padding: 20}}>

@@ -32,10 +32,10 @@ export const UsersSearchPage = () => {
                         <Grid item xs={3} key={index} onClick={() => {
                             itemOnclick(user.id)
                         }}>
-                            <Card style={{padding: 15}} className="card-search-users">
+                            <Card style={{padding: 15, textAlign: 'center'}} className="card-search-users">
                                 <div style={{display: 'flex'}}>
                                     <div>
-                                        <Avatar alt="gay-sex" scr={user.image ? user.image : defaultImage}/>
+                                        <Avatar alt="gay-sex" src={user?.image ? user?.image : defaultImage}/>
                                     </div>
                                     <div style={{marginLeft: 10}}>
                                         <div>

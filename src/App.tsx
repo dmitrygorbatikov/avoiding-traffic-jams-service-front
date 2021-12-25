@@ -4,15 +4,19 @@ import {useSelector} from "react-redux";
 import {tokenSelector} from "./modules/auth/selectors";
 import {BrowserRouter as Router} from "react-router-dom";
 import '../src/styles/layout.scss'
+import {carLoadingSelector, carSelector} from "./modules/car/selectors";
 
 function App() {
-  const token = useSelector(tokenSelector)
-  const routes = useRoutes(!!token)
-  return (
-      <Router>
-        {routes}
-      </Router>
-  );
+    const token = useSelector(tokenSelector)
+    const car = useSelector(carSelector)
+    const carLoading = useSelector(carLoadingSelector)
+    const routes = useRoutes(!!token, !!car, carLoading)
+    console.log(car)
+    return (
+        <Router>
+            {routes}
+        </Router>
+    );
 }
 
 export default App;

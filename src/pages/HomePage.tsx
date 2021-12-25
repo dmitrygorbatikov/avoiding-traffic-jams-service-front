@@ -4,12 +4,14 @@ import {useDispatch, useSelector} from "react-redux";
 import MenuDrawer from "../components/home/MenuDrawer";
 import {getUserProfile} from "../modules/user/actions";
 import {getUserProfileLoadingSelector} from "../modules/user/selectors";
+import {getCar} from "../modules/car/actions";
 
 const HomePage = () => {
     const dispatch = useDispatch()
     const loadingProfile = useSelector(getUserProfileLoadingSelector)
 
     useEffect(() => {
+        dispatch(getCar())
         dispatch(getUserProfile())
     }, [])
     return (

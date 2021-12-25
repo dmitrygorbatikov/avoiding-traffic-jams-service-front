@@ -8,6 +8,7 @@ import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutli
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import {getUserProfileLoadingSelector, userProfileSelector} from "../modules/user/selectors";
+import {getCar} from "../modules/car/actions";
 
 const ProfilePage = () => {
     const dispatch = useDispatch()
@@ -25,6 +26,8 @@ const ProfilePage = () => {
     const [displayEditSurname, setDisplayEditSurname] = useState(true)
     useEffect(() => {
         dispatch(getUserProfile())
+        dispatch(getCar())
+
     }, [])
     if (loading) {
         return (
