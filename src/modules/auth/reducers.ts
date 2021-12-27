@@ -3,6 +3,7 @@ import {AuthEnumTypes} from "./types";
 
 interface AuthState {
     token?: string | null
+    language?: string | null
     error?: string
     authLoading: boolean
 }
@@ -10,6 +11,7 @@ interface AuthState {
 const initState: AuthState = {
     authLoading: false,
     token: localStorage.getItem('token') ?? null,
+    language: localStorage.getItem('language') ?? 'ua'
 }
 
 function authReducer(state = initState, action: AnyAction): AuthState {
@@ -52,6 +54,11 @@ function authReducer(state = initState, action: AnyAction): AuthState {
             return {
                 ...state,
                 token: null,
+            }
+        case AuthEnumTypes.CHANGE_LANGUAGE:
+            return {
+                ...state,
+                language: action.payload,
             }
         default:
             return state

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Box, Card, IconButton, LinearProgress, TextField, Typography} from "@mui/material";
+import {Avatar, Box, Card, IconButton, LinearProgress, TextField, Typography} from "@mui/material";
 import MenuDrawer from "../components/home/MenuDrawer";
 import {useDispatch, useSelector} from "react-redux";
 import {editUserProfile, getUserProfile} from "../modules/user/actions";
@@ -9,21 +9,28 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import {getUserProfileLoadingSelector, userProfileSelector} from "../modules/user/selectors";
 import {getCar} from "../modules/car/actions";
+import {defaultImage} from "../helpers/common";
+import {languageSelector} from "../modules/auth/selectors";
+import {engLanguage, uaLanguage} from "../localization";
 
 const ProfilePage = () => {
     const dispatch = useDispatch()
     const profile = useSelector(userProfileSelector)
     const loading = useSelector(getUserProfileLoadingSelector)
+    const language = useSelector(languageSelector)
+    const currentLanguage = language === 'ua' ? uaLanguage : engLanguage
     const [name, setName] = useState('')
     const [nameError, setNameError] = useState(false)
-    const [nameLabel, setNameLabel] = useState('Name')
+
+    const [nameLabel, setNameLabel] = useState(currentLanguage.name)
     const [displayEditName, setDisplayEditName] = useState(true)
     const [disabledEditName, setDisabledEditName] = useState(false)
     const [disabledEditSurname, setDisabledEditSurname] = useState(false)
     const [surname, setSurname] = useState('')
     const [surnameError, setSurnameError] = useState(false)
-    const [surnameLabel, setSurnameLabel] = useState('Surname')
+    const [surnameLabel, setSurnameLabel] = useState(currentLanguage.surname)
     const [displayEditSurname, setDisplayEditSurname] = useState(true)
+
     useEffect(() => {
         dispatch(getUserProfile())
         dispatch(getCar())
@@ -42,7 +49,7 @@ const ProfilePage = () => {
                 <>
                     <div className="home__navigation" style={{padding: 20}}>
                         <Card style={{padding: 15}}>
-                            <Typography variant="h4">Name: <span
+                            <Typography variant="h4">{currentLanguage.name}: <span
                                 style={{display: `${!displayEditName ? 'none' : ''}`}}>{profile?.name}</span>
                                 <IconButton disabled={disabledEditName}
                                             style={{display: `${!displayEditName ? 'none' : ''}`}} onClick={() => {
@@ -57,7 +64,7 @@ const ProfilePage = () => {
                                                setName(e.target.value)
                                                if (e.target.value) {
                                                    setNameError(false)
-                                                   setNameLabel('Name')
+                                                   setNameLabel(currentLanguage.name)
                                                }
                                            }}
                                            variant="outlined"
@@ -70,7 +77,7 @@ const ProfilePage = () => {
                                         setDisabledEditSurname(false)
                                     } else {
                                         setNameError(true)
-                                        setNameLabel('Name must be filled')
+                                        setNameLabel(currentLanguage.nameMustBeFilled)
                                     }
                                 }} style={{display: `${displayEditName ? 'none' : ''}`}}><CheckIcon
                                     color="success"/></IconButton>
@@ -83,7 +90,7 @@ const ProfilePage = () => {
                                             }}><CloseIcon
                                     color="error"/></IconButton>
                             </Typography>
-                            <Typography variant="h4">Surname: <span
+                            <Typography variant="h4">{currentLanguage.surname}: <span
                                 style={{display: `${!displayEditSurname ? 'none' : ''}`}}>{profile?.surname}</span>
                                 <IconButton disabled={disabledEditSurname}
                                             style={{display: `${!displayEditSurname ? 'none' : ''}`}} onClick={() => {
@@ -98,7 +105,7 @@ const ProfilePage = () => {
                                                setSurname(e.target.value)
                                                if (e.target.value) {
                                                    setSurnameError(false)
-                                                   setSurnameLabel('Surname')
+                                                   setSurnameLabel(currentLanguage.surname)
                                                }
                                            }}
                                            variant="outlined"
@@ -111,7 +118,7 @@ const ProfilePage = () => {
                                         setDisabledEditName(false)
                                     } else {
                                         setSurnameError(true)
-                                        setSurnameLabel('Surname must be filled')
+                                        setSurnameLabel(currentLanguage.surnameMustBeFilled)
                                     }
                                 }} style={{display: `${displayEditSurname ? 'none' : ''}`}}><CheckIcon
                                     color="success"/></IconButton>
@@ -124,8 +131,8 @@ const ProfilePage = () => {
                                             }}><CloseIcon
                                     color="error"/></IconButton>
                             </Typography>
-                            <Typography variant="h4">Username: {profile?.username}</Typography>
-                            <Typography variant="h4">Register date: {createdDate(profile?.registerDate)}</Typography>
+                            <Typography variant="h4">{currentLanguage.userName}: {profile?.username}</Typography>
+                            <Typography variant="h4">{currentLanguage.registerDate}: {createdDate(profile?.registerDate)}</Typography>
                         </Card>
                         <div>
                             <MenuDrawer/>

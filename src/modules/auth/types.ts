@@ -8,6 +8,7 @@ export enum AuthEnumTypes {
     REGISTER_ERROR = 'REGISTER_ERROR',
 
     LOGOUT = 'LOGOUT',
+    CHANGE_LANGUAGE = 'CHANGE_LANGUAGE',
 }
 
 export interface LoginData {

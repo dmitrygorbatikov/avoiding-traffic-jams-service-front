@@ -10,10 +10,14 @@ import {
 } from "@mui/material";
 import React, {useState} from "react";
 import EditIcon from '@mui/icons-material/Edit';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {putCar} from "../../modules/car/actions";
+import {languageSelector} from "../../modules/auth/selectors";
+import {engLanguage, uaLanguage} from "../../localization";
 
 export const EditCarDialog = (props: any) => {
+    const language = useSelector(languageSelector)
+    const currentLanguage = language === 'ua' ? uaLanguage : engLanguage
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState<string>(props.data.title ?? '')
@@ -44,7 +48,7 @@ export const EditCarDialog = (props: any) => {
                 <EditIcon/>
             </IconButton>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Edit your car data</DialogTitle>
+                <DialogTitle>{currentLanguage.editYourCarData}</DialogTitle>
                 <DialogContent>
                     <DialogContentText
                         style={{
@@ -63,7 +67,7 @@ export const EditCarDialog = (props: any) => {
                         error={titleError}
                         autoFocus
                         margin="dense"
-                        label="Title"
+                        label={currentLanguage.title}
                         type="text"
                         fullWidth
                         variant="standard"
@@ -73,19 +77,18 @@ export const EditCarDialog = (props: any) => {
                         onChange={(e) => {
                             setNumber(e.target.value)
                             setNumberError(false)
-
                         }}
                         error={numberError}
                         margin="dense"
-                        label="Number"
+                        label={currentLanguage.number}
                         type="text"
                         fullWidth
                         variant="standard"
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button variant={'outlined'} color={'error'} onClick={handleClose}>Cancel</Button>
-                    <Button variant={'contained'} color={'success'} onClick={saveCarData}>Save</Button>
+                    <Button variant={'outlined'} color={'error'} onClick={handleClose}>{currentLanguage.cancel}</Button>
+                    <Button variant={'contained'} color={'success'} onClick={saveCarData}>{currentLanguage.save}</Button>
                 </DialogActions>
             </Dialog>
         </div>

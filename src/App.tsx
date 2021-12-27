@@ -11,7 +11,6 @@ function App() {
     const car = useSelector(carSelector)
     const carLoading = useSelector(carLoadingSelector)
     const routes = useRoutes(!!token, !!car, carLoading)
-    console.log(car)
     return (
         <Router>
             {routes}

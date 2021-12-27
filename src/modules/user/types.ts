@@ -16,4 +16,10 @@ export interface UserProfile {
     surname: string
     username: string
     registerDate: number
+    image: string
+    role: string
+    online: boolean
+    lng: number
+    lat: number
+    lastSeen: string
 }

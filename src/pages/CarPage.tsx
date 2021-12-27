@@ -6,14 +6,17 @@ import {carSelector} from "../modules/car/selectors";
 import MenuDrawer from "../components/home/MenuDrawer";
 import {EditCarDialog} from "../components/car/EditCarDialog";
 import {msToTime} from "../helpers/functions";
+import {languageSelector} from "../modules/auth/selectors";
+import {engLanguage, uaLanguage} from "../localization";
 
 export const CarPage = () => {
     const dispatch = useDispatch()
     const car = useSelector(carSelector)
+    const language = useSelector(languageSelector)
+    const currentLanguage = language === 'ua' ? uaLanguage : engLanguage
     useEffect(() => {
         dispatch(getCar())
     }, [])
-    console.log(car)
     return (
         <div style={{padding: 15}}>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -21,7 +24,7 @@ export const CarPage = () => {
                 <div><MenuDrawer/></div>
             </div>
             <div>
-                <Typography variant="h3" style={{textAlign: 'center'}}>My car data</Typography>
+                <Typography variant="h3" style={{textAlign: 'center'}}>{currentLanguage.myCarData}</Typography>
             </div>
             <div style={{maxWidth: 400, margin: '0 auto', marginTop: 100}}>
                 <Card style={{
@@ -34,10 +37,10 @@ export const CarPage = () => {
                 }}>
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
                         <div>
-                            <Typography>Title: {car.title}</Typography>
-                            <Typography>Number: {car.number}</Typography>
-                            <Typography>Register date: {msToTime(Date.parse(car.registerDate))}</Typography>
-                            <Typography>Updated date: {msToTime(Date.parse(car.updatedDate))}</Typography>
+                            <Typography>{currentLanguage.title}: {car.title}</Typography>
+                            <Typography>{currentLanguage.number}: {car.number}</Typography>
+                            <Typography>{currentLanguage.registerDate}: {msToTime(Date.parse(car.registerDate))}</Typography>
+                            <Typography>{currentLanguage.updatedDate}: {msToTime(Date.parse(car.updatedDate))}</Typography>
                         </div>
                         <div>
                             <EditCarDialog data={{title: car.title, number: car.number}}/>

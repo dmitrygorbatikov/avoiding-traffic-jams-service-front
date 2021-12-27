@@ -25,15 +25,15 @@ export const ChatComponents = () => {
     }, [])
     return (
         <div>
-            {/*{!loading && !usersLoading && <ViewChatComponent open={openUserChat.open}/>}*/}
+            {!loading && !usersLoading && <ViewChatComponent open={openUserChat.open}/>}
             <List sx={{width: '100%', bgcolor: 'background.paper'}}>
                 {chatsList.length > 0 && chatsList.map((item: any, index: number) => {
                     return (
                         <ListItem>
                             <ListItemButton
-                                // onClick={() => {
-                                //     itemOnclick(item.secondUserId === profile.id ? item.chatCreatorId : item.secondUserId)
-                                // }}
+                                onClick={() => {
+                                    itemOnclick(item.secondUserId === profile.id ? item.chatCreatorId : item.secondUserId)
+                                }}
                             >
                                 <ListItemAvatar>
                                     <Avatar alt={item.secondUserName}

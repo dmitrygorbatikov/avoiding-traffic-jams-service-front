@@ -96,3 +96,11 @@ export const register = (data: RegisterData) => {
         }
     }
 }
+
+export const changeLanguage = (language: string) => {
+    localStorage.setItem('language', language)
+    return {
+        type: AuthEnumTypes.CHANGE_LANGUAGE,
+        payload: language,
+    }
+}

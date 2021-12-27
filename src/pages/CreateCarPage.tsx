@@ -1,7 +1,10 @@
-import {Button, Card, TextField, Typography} from "@mui/material";
-import {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
+import {Button, ButtonGroup, Card, TextField, Typography} from "@mui/material";
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {getCar, postCar} from "../modules/car/actions";
+import {languageSelector} from "../modules/auth/selectors";
+import {engLanguage, uaLanguage} from "../localization";
+import {changeLanguage} from "../modules/auth/actions";
 
 export const CreateCarPage = () => {
     const dispatch = useDispatch()
@@ -9,6 +12,8 @@ export const CreateCarPage = () => {
     const [number, setNumber] = useState('')
     const [titleError, setTitleError] = useState(false)
     const [numberError, setNumberError] = useState(false)
+    const language = useSelector(languageSelector)
+    const currentLanguage = language === 'ua' ? uaLanguage : engLanguage
     const createCar = () => {
         if (title && number) {
             dispatch(postCar({title, number}))
@@ -23,10 +28,24 @@ export const CreateCarPage = () => {
     useEffect(() => {
         dispatch(getCar())
     }, [])
+
     return (
         <div>
+            <div style={{margin: 20, display: 'flex', justifyContent: 'space-between'}}>
+                <div/>
+                <div style={{marginTop: 10}}>
+                    <ButtonGroup variant="contained" aria-label="outlined primary button group">
+                        <Button disabled={language === 'ua'} onClick={() => {
+                            dispatch(changeLanguage('ua'))
+                        }}>Українська</Button>
+                        <Button disabled={language === 'eng'} onClick={() => {
+                            dispatch(changeLanguage('eng'))
+                        }}>English</Button>
+                    </ButtonGroup>
+                </div>
+            </div>
             <div style={{textAlign: 'center', marginTop: 20}}>
-                <Typography>You need to create car</Typography>
+                <Typography>{currentLanguage.youNeedToCreateCar}</Typography>
             </div>
             <div style={{
                 margin: '0 auto',
@@ -40,11 +59,12 @@ export const CreateCarPage = () => {
             }}>
                 <Typography
                     style={{
+                        marginTop: 10,
                         color: 'red',
                         display: `${!titleError && !numberError ? 'none' : ''}`
                     }}
                 >
-                    Fields are required
+                    {currentLanguage.fieldsAreRequired}
                 </Typography>
                 <div style={{marginTop: 20}}>
                     <TextField
@@ -54,7 +74,7 @@ export const CreateCarPage = () => {
                             setTitle(e.target.value)
                             setTitleError(false)
                         }}
-                        placeholder="Title"
+                        placeholder={currentLanguage.title}
                     />
                 </div>
                 <div style={{marginTop: 15}}>
@@ -65,11 +85,11 @@ export const CreateCarPage = () => {
                             setNumber(e.target.value)
                             setNumberError(false)
                         }}
-                        placeholder="Number"
+                        placeholder={currentLanguage.number}
                     />
                 </div>
                 <div style={{marginTop: 15, marginBottom: 20}}>
-                    <Button color="success" variant="contained" onClick={createCar}>Create car</Button>
+                    <Button color="success" variant="contained" onClick={createCar}>{currentLanguage.createCar}</Button>
                 </div>
             </div>
         </div>
